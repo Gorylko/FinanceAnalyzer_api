@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceAnalyzer.UI", "FinanceAnalyzer.UI\FinanceAnalyzer.UI.csproj", "{3890A208-D6B3-4308-BE13-97E80F2A221D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceAnalyzer.Business", "FinanceAnalyzer.Business\FinanceAnalyzer.Business.csproj", "{FAC33FFF-A2B7-47D1-B4EB-144DB0054AC2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinanceAnalyzer.Data", "FinanceAnalyzer.Data\FinanceAnalyzer.Data.csproj", "{3F983B67-F545-4A7D-A943-FDF5B3C965BD}"
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3890A208-D6B3-4308-BE13-97E80F2A221D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3890A208-D6B3-4308-BE13-97E80F2A221D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3890A208-D6B3-4308-BE13-97E80F2A221D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3890A208-D6B3-4308-BE13-97E80F2A221D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FAC33FFF-A2B7-47D1-B4EB-144DB0054AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FAC33FFF-A2B7-47D1-B4EB-144DB0054AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAC33FFF-A2B7-47D1-B4EB-144DB0054AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
