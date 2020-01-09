@@ -5,17 +5,17 @@
     using FinanceAnalyzer.Data.DataContext.Realizations.MsSql;
     using FinanceAnalyzer.Data.DbContext.Interfaces;
     using FinanceAnalyzer.Data.DbContext.Realization;
-    using StructureMap;
+    using Microsoft.Extensions.DependencyInjection;
 
-    public class DataRegistry : Registry
+    public static class DataRegistry
     {
-        public DataRegistry()
+        public static void AddDataDependencies(this IServiceCollection services)
         {
-            For<IExpensesContext<decimal>>().Use<ExpensesContext>();
-            For<IIncomeContext<decimal>>().Use<IncomeContext>();
-            For<IUserContext>().Use<UserContext>();
-            For<ITaxContext<decimal>>().Use<TaxContext>();
-            For<IExecutor>().Use<ProcedureExecutor>();
+            services.AddTransient<IExpensesContext<decimal>, ExpensesContext>();
+            services.AddTransient<IIncomeContext<decimal>, IncomeContext>();
+            services.AddTransient<IUserContext, UserContext>();
+            services.AddTransient<ITaxContext<decimal>, TaxContext>();
+            services.AddTransient<IExecutor, ProcedureExecutor>();
         }
     }
 }

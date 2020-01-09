@@ -45,6 +45,19 @@
             return mapper.Map(dataSet);
         }
 
+        public async Task<UserDto> GetByLogin(string login)
+        {
+            var dataSet = await _executor.ExecuteDataSet(
+                "sp_select_user_by_login",
+                new Dictionary<string, object>
+                {
+                    { "login", login },
+                });
+
+            var mapper = new Mapper<DataSet, UserDto> { Map = UserMapStrategies.MapUser };
+            return mapper.Map(dataSet);
+        }
+
         public async Task<UserDto> GetByLoginAndPassword(string login, byte[] password)
         {
             var dataSet = await _executor.ExecuteDataSet(

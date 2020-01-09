@@ -9,6 +9,6 @@
 
         Task<User> Register(string login, string password);
 
-        Task<User> GetUserByLogin(string login);
+        Task<User> Login(string login);
     }
 }

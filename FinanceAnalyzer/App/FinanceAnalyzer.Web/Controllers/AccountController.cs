@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FinanceAnalyzer.Business.Services.Interfaces;
 using FinanceAnalyzer.Web.Auth;
 using FinanceAnalyzer.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,17 +16,17 @@ namespace FinanceAnalyzer.Web.Controllers
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
-        // тестовые данные вместо использования базы данных
-        private List<UserModel> people = new List<UserModel>
+        private readonly ILoginService _loginService;
+
+        public AccountController(ILoginService loginService)
         {
-            new UserModel { Login="admin@gmail.com", Password="12345", Role = "admin" },
-            new UserModel { Login="qwerty@gmail.com", Password="55555", Role = "user" }
-        };
+            _loginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
+        }
 
         [HttpPost("/token")]
-        public IActionResult Token(string username, string password)
+        public async Task<IActionResult> Token(string username, string password)
         {
-            var identity = GetIdentity(username, password);
+            var identity = await GetIdentity(username, password);
             if (identity == null)
             {
                 return BadRequest(new { errorText = "Invalid username or password." });
@@ -51,23 +52,24 @@ namespace FinanceAnalyzer.Web.Controllers
             return Json(response);
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        private async Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
-            var person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
+            var person = await _loginService.Login(username, password);
 
             if (person != null)
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"), //временно
                 };
 
                 return new ClaimsIdentity(
                     claims, 
                     "Token", 
                     ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
+                    ClaimsIdentity.DefaultRoleClaimType
+                    );
             }
 
             return null;

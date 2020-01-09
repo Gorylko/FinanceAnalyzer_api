@@ -29,6 +29,11 @@
                 _cryptographer.Encrypt(password, salt))).ConvertToUser(password);
         }
 
+        public async Task<User> Login(string login)
+        {
+            return await _userContext.GetByLogin(login);
+        }
+
         public async Task<User> Register(string login, string password)
         {
             var encryptedPassword = _cryptographer.Encrypt(login, out byte[] salt);

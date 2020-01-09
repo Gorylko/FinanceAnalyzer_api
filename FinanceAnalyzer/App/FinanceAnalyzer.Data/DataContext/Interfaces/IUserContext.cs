@@ -8,6 +8,8 @@
     {
         Task<UserDto> GetByLoginAndPassword(string login, byte[] password);
 
+        Task<UserDto> GetByLogin(string login);
+
         Task<byte[]> GetUserSaltByLogin(string login);
     }
 }

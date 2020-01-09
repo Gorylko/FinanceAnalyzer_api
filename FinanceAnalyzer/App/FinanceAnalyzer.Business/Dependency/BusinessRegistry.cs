@@ -6,17 +6,17 @@ namespace FinanceAnalyzer.Business.Dependency
 {
     using FinanceAnalyzer.Business.Services.Interfaces;
     using FinanceAnalyzer.Business.Services.Realizations;
-    using StructureMap;
+    using Microsoft.Extensions.DependencyInjection;
 
-    public class BusinessRegistry : Registry
+    public static class BusinessRegistry
     {
-        public BusinessRegistry()
+        public static void AddBusinessDependencies(this IServiceCollection services)
         {
-            For<IIncomeService>().Use<IncomeService>();
-            For<IFinanceService<decimal>>().Use<FinanceService>();
-            For<IExpensesService>().Use<ExpensesService>();
-            For<ILoginService>().Use<LoginService>();
-            For<ITaxService>().Use<TaxService>();
+            services.AddTransient<IIncomeService, IncomeService>();
+            services.AddTransient<IFinanceService<decimal>, FinanceService>();
+            services.AddTransient<IExpensesService, ExpensesService>();
+            services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<ITaxService, TaxService>();
         }
     }
 }
