@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinanceAnalyzer.Business\FinanceAnalyzer.Business.csproj" />
     <ProjectReference Include="..\FinanceAnalyzer.Shared\FinanceAnalyzer.Shared.csproj" />
   </ItemGroup>

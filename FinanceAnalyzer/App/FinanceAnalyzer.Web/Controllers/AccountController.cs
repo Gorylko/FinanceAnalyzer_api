@@ -11,12 +11,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FinanceAnalyzer.Web.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : Controller
     {
         // тестовые данные вместо использования базы данных
         private List<UserModel> people = new List<UserModel>
         {
-            new UserModel {Login="admin@gmail.com", Password="12345", Role = "admin" },
+            new UserModel { Login="admin@gmail.com", Password="12345", Role = "admin" },
             new UserModel { Login="qwerty@gmail.com", Password="55555", Role = "user" }
         };
 
@@ -58,7 +60,7 @@ namespace FinanceAnalyzer.Web.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role),
                 };
 
                 return new ClaimsIdentity(
@@ -68,7 +70,6 @@ namespace FinanceAnalyzer.Web.Controllers
                     ClaimsIdentity.DefaultRoleClaimType);
             }
 
-            // если пользователя не найдено
             return null;
         }
     }
