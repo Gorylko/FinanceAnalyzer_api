@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using FinanceAnalyzer.Business.Services.Interfaces;
+﻿using FinanceAnalyzer.Business.Services.Interfaces;
 using FinanceAnalyzer.Web.Auth;
-using FinanceAnalyzer.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace FinanceAnalyzer.Web.Controllers
 {
@@ -35,11 +33,11 @@ namespace FinanceAnalyzer.Web.Controllers
             var now = DateTime.UtcNow;
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
+                    issuer: AuthOptions.Issuer,
+                    audience: AuthOptions.Audience,
                     notBefore: now,
                     claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LifeTime)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
@@ -62,6 +60,7 @@ namespace FinanceAnalyzer.Web.Controllers
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"), //временно
+                    new Claim("UserId", "1"),
                 };
 
                 return new ClaimsIdentity(

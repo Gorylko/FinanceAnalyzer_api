@@ -31,7 +31,7 @@
 
         public async Task<User> Login(string login)
         {
-            return await _userContext.GetByLogin(login);
+            return (await _userContext.GetByLogin(login)).ConvertToUser();
         }
 
         public async Task<User> Register(string login, string password)
