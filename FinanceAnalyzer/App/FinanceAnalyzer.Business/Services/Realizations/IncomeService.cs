@@ -5,12 +5,13 @@
     using System.Threading.Tasks;
     using FinanceAnalyzer.Business.Services.Interfaces;
     using FinanceAnalyzer.Data.DataContext.Interfaces;
+    using FinanceAnalyzer.Shared.Entities;
 
     internal class IncomeService : IIncomeService
     {
-        private readonly IIncomeContext<decimal> _incomeContext;
+        private readonly IIncomeContext<Income> _incomeContext;
 
-        public IncomeService(IIncomeContext<decimal> incomeContext)
+        public IncomeService(IIncomeContext<Income> incomeContext)
         {
             _incomeContext = incomeContext ?? throw new ArgumentNullException(nameof(incomeContext));
         }
@@ -20,17 +21,17 @@
             await _incomeContext.ClearAll();
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetAll()
+        public async Task<IReadOnlyCollection<Income>> GetAll()
         {
             return await _incomeContext.GetAll();
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetAllByUserId(int id)
+        public async Task<IReadOnlyCollection<Income>> GetAllByUserId(int id)
         {
             return await _incomeContext.GetAllByUserId(id);
         }
 
-        public async Task Save(decimal obj)
+        public async Task Save(Income obj)
         {
             await _incomeContext.Save(obj);
         }

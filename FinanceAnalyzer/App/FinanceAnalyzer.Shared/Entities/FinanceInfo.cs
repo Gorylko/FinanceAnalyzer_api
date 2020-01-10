@@ -5,9 +5,9 @@
 
     public class FinanceInfo
     {
-        public IReadOnlyCollection<decimal> IncomeHistoryCollection { get; set; }
+        public IReadOnlyCollection<Income> IncomeHistoryCollection { get; set; }
 
-        public IReadOnlyCollection<decimal> ExpensesHistoryCollection { get; set; }
+        public IReadOnlyCollection<Expense> ExpensesHistoryCollection { get; set; }
 
         public decimal TotalIncome
         {
@@ -15,7 +15,7 @@
             {
                 return IncomeHistoryCollection == null
                     ? 0
-                    : IncomeHistoryCollection.Sum();
+                    : IncomeHistoryCollection.Select(el => el.Value).Sum();
             }
         }
 
@@ -25,7 +25,7 @@
             {
                 return ExpensesHistoryCollection == null
                     ? 0
-                    : ExpensesHistoryCollection.Sum();
+                    : ExpensesHistoryCollection.Select(el => el.Value).Sum();
             }
         }
 

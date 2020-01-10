@@ -8,18 +8,18 @@ namespace FinanceAnalyzer.Business.Services.Interfaces
     using System.Threading.Tasks;
     using FinanceAnalyzer.Shared.Entities;
 
-    public interface IFinanceService<T>
+    public interface IFinanceService
     {
         Task<FinanceInfo> GetFullInformation(int userId);
 
-        Task AddNewExpense(T value, int userId);
+        Task AddNewExpense(Expense expense);
 
-        Task AddNewIncome(T value, int userId);
+        Task AddNewIncome(Income income);
 
         Task ClearHistory(int userId);
 
-        Task<IReadOnlyCollection<T>> GetIncomeHistory(int userId);
+        Task<IReadOnlyCollection<Income>> GetIncomeHistory(int userId);
 
-        Task<IReadOnlyCollection<T>> GetExpenseHistory(int userId);
+        Task<IReadOnlyCollection<Expense>> GetExpenseHistory(int userId);
     }
 }

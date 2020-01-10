@@ -13,7 +13,7 @@ namespace FinanceAnalyzer.Business.Dependency
         public static void AddBusinessDependencies(this IServiceCollection services)
         {
             services.AddTransient<IIncomeService, IncomeService>();
-            services.AddTransient<IFinanceService<decimal>, FinanceService>();
+            services.AddTransient<IFinanceService, FinanceService>();
             services.AddTransient<IExpensesService, ExpensesService>();
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<ITaxService, TaxService>();

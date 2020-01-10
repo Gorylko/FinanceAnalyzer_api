@@ -8,9 +8,10 @@
     using FinanceAnalyzer.Data.DataContext.Interfaces;
     using FinanceAnalyzer.Data.DbContext.Interfaces;
     using FinanceAnalyzer.Data.Mappers;
-    using MapStrategy = FinanceAnalyzer.Data.Mappers.IncomeMapStrategies;
+    using FinanceAnalyzer.Shared.Entities;
+    using MapStrategy = FinanceAnalyzer.Data.Mappers.ExpenseMapStrategies;
 
-    public class ExpensesContext : IExpensesContext<decimal>
+    public class ExpensesContext : IExpensesContext<Expense>
     {
         private readonly IExecutor _executor;
 
@@ -24,12 +25,12 @@
             await _executor.ExecuteNonQuery("sp_delete_all_expenses");
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetAll()
+        public async Task<IReadOnlyCollection<Expense>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetAllByUserId(int userId)
+        public async Task<IReadOnlyCollection<Expense>> GetAllByUserId(int userId)
         {
             var dataSet = await _executor.ExecuteDataSet(
                 "sp_select_expenses_by_user_id",
@@ -38,21 +39,21 @@
                     { "userId", userId },
                 });
 
-            var mapper = new Mapper<DataSet, IReadOnlyCollection<decimal>> { Map = MapStrategy.MapIncomes };
+            var mapper = new Mapper<DataSet, IReadOnlyCollection<Expense>> { Map = MapStrategy.MapExpenses };
             return mapper.Map(dataSet);
         }
 
-        public Task<decimal> GetById(int id)
+        public Task<Expense> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task Save(decimal obj)
+        public async Task Save(Expense obj)
         {
             await _executor.ExecuteNonQuery("sp_insert_expense", new Dictionary<string, object>
             {
-                { "amount", obj },
-                { "userId", SqlConstants.CurrentUserId },
+                { "amount", obj.Value },
+                { "userId", obj.UserId },
             });
         }
     }

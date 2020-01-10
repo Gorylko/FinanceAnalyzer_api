@@ -4,9 +4,10 @@
 
 namespace FinanceAnalyzer.Business.Services.Interfaces
 {
+    using FinanceAnalyzer.Shared.Entities;
     using System.Collections.Generic;
 
-    public interface IExpensesService : IService<decimal, IReadOnlyCollection<decimal>>
+    public interface IExpensesService : IService<Expense, IReadOnlyCollection<Expense>>
     {
     }
 }

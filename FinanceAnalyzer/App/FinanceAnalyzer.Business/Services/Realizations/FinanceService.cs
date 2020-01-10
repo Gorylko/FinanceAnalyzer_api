@@ -6,7 +6,7 @@
     using FinanceAnalyzer.Business.Services.Interfaces;
     using FinanceAnalyzer.Shared.Entities;
 
-    public class FinanceService : IFinanceService<decimal>
+    public class FinanceService : IFinanceService
     {
         private readonly IExpensesService _expensesService;
         private readonly IIncomeService _incomeService;
@@ -31,24 +31,24 @@
             };
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetIncomeHistory(int userId)
+        public async Task<IReadOnlyCollection<Income>> GetIncomeHistory(int userId)
         {
             return await _incomeService.GetAllByUserId(userId);
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetExpenseHistory(int userId)
+        public async Task<IReadOnlyCollection<Expense>> GetExpenseHistory(int userId)
         {
             return await _expensesService.GetAllByUserId(userId);
         }
 
-        public async Task AddNewIncome(decimal value, int userId)
+        public async Task AddNewIncome(Income income)
         {
-            await _incomeService.Save(await _taxService.TakeTax(value));
+            await _incomeService.Save(income);
         }
 
-        public async Task AddNewExpense(decimal value, int userId)
+        public async Task AddNewExpense(Expense expense)
         {
-            await _expensesService.Save(await _taxService.TakeTax(value));
+            await _expensesService.Save(expense);
         }
 
         public async Task ClearHistory(int userId)
