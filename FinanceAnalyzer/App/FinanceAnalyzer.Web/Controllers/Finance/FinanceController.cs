@@ -17,7 +17,6 @@ namespace FinanceAnalyzer.Web.Controllers.Finance
         [HttpGet("getAllIncomes")]
         public IActionResult GetAllIncomes()
         {
-            HttpContext.User
             return Json("get all incomes");
         }
     }

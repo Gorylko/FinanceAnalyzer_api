@@ -1,5 +1,7 @@
 ﻿using FinanceAnalyzer.Business.Services.Interfaces;
+using FinanceAnalyzer.Shared.Entities;
 using FinanceAnalyzer.Web.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -21,8 +23,8 @@ namespace FinanceAnalyzer.Web.Controllers
             _loginService = loginService ?? throw new ArgumentNullException(nameof(loginService));
         }
 
-        [HttpPost("/token")]
-        public async Task<IActionResult> Token(string username, string password)
+        [HttpPost("/login")]
+        public async Task<IActionResult> Login(string username, string password)
         {
             var identity = await GetIdentity(username, password);
             if (identity == null)
@@ -50,8 +52,24 @@ namespace FinanceAnalyzer.Web.Controllers
             return Json(response);
         }
 
+        [AllowAnonymous]
+        [HttpPost("/register")]
+        public async Task<IActionResult> Register(string username, string password)
+        {
+            var user = await _loginService.Register(username, password);
+
+            if(user == null)
+            {
+                return BadRequest(new { errorText = "Invalid username or password." });
+            }
+            return Ok("succesful");
+        }
+
+
         private async Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
+            //var person = await _loginService.Login(username, password);
+
             var person = await _loginService.Login(username, password);
 
             if (person != null)
