@@ -7,12 +7,6 @@ namespace FinanceAnalyzer.Web.Controllers.Finance
     [Route("api/[controller]")]
     public class FinanceController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [Authorize]
         [HttpGet("getAllIncomes")]
         public IActionResult GetAllIncomes()

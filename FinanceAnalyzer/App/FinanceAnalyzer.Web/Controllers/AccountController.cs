@@ -1,6 +1,8 @@
 ﻿using FinanceAnalyzer.Business.Services.Interfaces;
 using FinanceAnalyzer.Shared.Entities;
 using FinanceAnalyzer.Web.Auth;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -33,7 +35,7 @@ namespace FinanceAnalyzer.Web.Controllers
             }
 
             var now = DateTime.UtcNow;
-            // создаем JWT-токен
+
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.Issuer,
                     audience: AuthOptions.Audience,
@@ -49,6 +51,7 @@ namespace FinanceAnalyzer.Web.Controllers
                 username = identity.Name
             };
 
+            Response.Cookies.Append("Token", encodedJwt);
             return Json(response);
         }
 
@@ -70,23 +73,25 @@ namespace FinanceAnalyzer.Web.Controllers
         {
             //var person = await _loginService.Login(username, password);
 
-            var person = await _loginService.Login(username, password);
+            var user = await _loginService.Login(username, password);
 
-            if (person != null)
+            if (user != null)
             {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"), //временно
-                    new Claim("UserId", "1"),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, "user"), 
+                    new Claim("UserId", user.Id.ToString()),
                 };
 
-                return new ClaimsIdentity(
-                    claims, 
-                    "Token", 
+                var claimsIdent = new ClaimsIdentity(
+                    claims,
+                    "Token",
                     ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType
                     );
+
+                return claimsIdent;
             }
 
             return null;

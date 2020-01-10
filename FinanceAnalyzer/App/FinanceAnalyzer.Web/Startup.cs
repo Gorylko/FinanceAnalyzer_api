@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using FinanceAnalyzer.Web.Dependency;
+using System.Threading.Tasks;
 
 namespace FinanceAnalyzer.Web
 {
@@ -38,9 +39,35 @@ namespace FinanceAnalyzer.Web
                             IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
                             ValidateIssuerSigningKey = true,
                         };
+
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnMessageReceived = context =>
+                            {
+                                context.Token = context.Request.Cookies["Token"];
+                                return Task.CompletedTask;
+                            },
+                        };
                     });
 
             services.AddControllers();
+
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "Finance API";
+                    document.Info.Description = "Super cool financial assistant";
+                    document.Info.TermsOfService = "None";
+                    document.Info.Contact = new NSwag.OpenApiContact
+                    {
+                        Name = "Kiryshenka",
+                        Email = string.Empty,
+                        Url = "https://github.com/Gorylko"
+                    };
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +89,9 @@ namespace FinanceAnalyzer.Web
             {
                 endpoints.MapControllers();
             });
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }
