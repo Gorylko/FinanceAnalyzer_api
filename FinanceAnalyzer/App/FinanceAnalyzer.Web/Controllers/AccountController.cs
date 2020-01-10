@@ -1,8 +1,5 @@
 ﻿using FinanceAnalyzer.Business.Services.Interfaces;
-using FinanceAnalyzer.Shared.Entities;
 using FinanceAnalyzer.Web.Auth;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;

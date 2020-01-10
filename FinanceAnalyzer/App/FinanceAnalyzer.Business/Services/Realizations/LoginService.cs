@@ -36,7 +36,7 @@
 
         public async Task<User> Register(string login, string password)
         {
-            var encryptedPassword = _cryptographer.Encrypt(login, out byte[] salt);
+            var encryptedPassword = _cryptographer.Encrypt(password, out byte[] salt);
 
             var userDto = new UserDto
             {
