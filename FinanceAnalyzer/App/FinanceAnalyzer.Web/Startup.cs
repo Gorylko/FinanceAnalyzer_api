@@ -6,8 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using FinanceAnalyzer.Web.Dependency;
 using System.Threading.Tasks;
+using FinanceAnalyzer.Business.Dependency;
+using FinanceAnalyzer.Data.Dependency;
 
 namespace FinanceAnalyzer.Web
 {
@@ -23,7 +24,8 @@ namespace FinanceAnalyzer.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDependencies();
+            services.AddBusinessDependencies();
+            services.AddDataDependencies();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
