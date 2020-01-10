@@ -25,6 +25,11 @@
             return await _expensesContext.GetAll();
         }
 
+        public async Task<IReadOnlyCollection<decimal>> GetAllByUserId(int id)
+        {
+            return await _expensesContext.GetAllByUserId(id);
+        }
+
         public async Task Save(decimal obj)
         {
             await _expensesContext.Save(obj);

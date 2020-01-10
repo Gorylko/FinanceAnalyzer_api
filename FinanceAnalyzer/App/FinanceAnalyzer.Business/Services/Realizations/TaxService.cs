@@ -26,6 +26,11 @@
             return await _taxContext.GetAll();
         }
 
+        public Task<IReadOnlyCollection<decimal>> GetAllByUserId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task Save(decimal obj)
         {
             await _taxContext.Save(obj);

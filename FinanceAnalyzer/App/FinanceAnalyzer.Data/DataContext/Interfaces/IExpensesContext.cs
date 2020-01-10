@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface IExpensesContext<T> : IDataContext<T>
+    public interface IExpensesContext<T> : IFinanceContext<T>
     {
     }
 }

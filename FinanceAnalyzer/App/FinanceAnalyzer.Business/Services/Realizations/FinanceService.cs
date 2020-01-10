@@ -22,36 +22,36 @@
             _taxService = taxService ?? throw new ArgumentNullException(nameof(taxService));
         }
 
-        public async Task<FinanceInfo> GetFullInformation()
+        public async Task<FinanceInfo> GetFullInformation(int userId)
         {
             return new FinanceInfo
             {
-                IncomeHistoryCollection = await _incomeService.GetAll(),
-                ExpensesHistoryCollection = await _expensesService.GetAll(),
+                IncomeHistoryCollection = await _incomeService.GetAllByUserId(userId),
+                ExpensesHistoryCollection = await _expensesService.GetAllByUserId(userId),
             };
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetIncomeHistory()
+        public async Task<IReadOnlyCollection<decimal>> GetIncomeHistory(int userId)
         {
-            return await _incomeService.GetAll();
+            return await _incomeService.GetAllByUserId(userId);
         }
 
-        public async Task<IReadOnlyCollection<decimal>> GetExpenseHistory()
+        public async Task<IReadOnlyCollection<decimal>> GetExpenseHistory(int userId)
         {
-            return await _expensesService.GetAll();
+            return await _expensesService.GetAllByUserId(userId);
         }
 
-        public async Task AddNewIncome(decimal value)
+        public async Task AddNewIncome(decimal value, int userId)
         {
             await _incomeService.Save(await _taxService.TakeTax(value));
         }
 
-        public async Task AddNewExpense(decimal value)
+        public async Task AddNewExpense(decimal value, int userId)
         {
             await _expensesService.Save(await _taxService.TakeTax(value));
         }
 
-        public async Task ClearHistory()
+        public async Task ClearHistory(int userId)
         {
             await _expensesService.ClearAll();
             await _incomeService.ClearAll();

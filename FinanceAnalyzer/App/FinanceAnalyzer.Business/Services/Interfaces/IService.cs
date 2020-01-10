@@ -10,6 +10,8 @@ namespace FinanceAnalyzer.Business.Services.Interfaces
     {
         Task<TResult> GetAll();
 
+        Task<TResult> GetAllByUserId(int id);
+
         Task Save(TValue obj);
 
         Task ClearAll();

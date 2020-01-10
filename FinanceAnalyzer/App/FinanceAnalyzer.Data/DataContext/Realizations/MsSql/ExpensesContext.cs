@@ -26,11 +26,16 @@
 
         public async Task<IReadOnlyCollection<decimal>> GetAll()
         {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyCollection<decimal>> GetAllByUserId(int userId)
+        {
             var dataSet = await _executor.ExecuteDataSet(
                 "sp_select_expenses_by_user_id",
                 new Dictionary<string, object>
                 {
-                    { "userId", SqlConstants.CurrentUserId },
+                    { "userId", userId },
                 });
 
             var mapper = new Mapper<DataSet, IReadOnlyCollection<decimal>> { Map = MapStrategy.MapIncomes };

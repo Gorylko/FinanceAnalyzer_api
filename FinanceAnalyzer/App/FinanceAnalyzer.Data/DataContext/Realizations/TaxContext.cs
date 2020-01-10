@@ -28,6 +28,11 @@
             }
         }
 
+        public Task<IReadOnlyCollection<decimal>> GetAllByUserId(int userId)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<decimal> GetById(int id)
         {
             throw new System.NotImplementedException();

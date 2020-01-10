@@ -10,16 +10,16 @@ namespace FinanceAnalyzer.Business.Services.Interfaces
 
     public interface IFinanceService<T>
     {
-        Task<FinanceInfo> GetFullInformation();
+        Task<FinanceInfo> GetFullInformation(int userId);
 
-        Task AddNewExpense(T value);
+        Task AddNewExpense(T value, int userId);
 
-        Task AddNewIncome(T value);
+        Task AddNewIncome(T value, int userId);
 
-        Task ClearHistory();
+        Task ClearHistory(int userId);
 
-        Task<IReadOnlyCollection<T>> GetIncomeHistory();
+        Task<IReadOnlyCollection<T>> GetIncomeHistory(int userId);
 
-        Task<IReadOnlyCollection<T>> GetExpenseHistory();
+        Task<IReadOnlyCollection<T>> GetExpenseHistory(int userId);
     }
 }
