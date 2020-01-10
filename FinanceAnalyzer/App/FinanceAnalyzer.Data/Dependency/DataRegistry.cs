@@ -12,11 +12,11 @@
     {
         public static void AddDataDependencies(this IServiceCollection services)
         {
-            services.AddTransient<IExpensesContext<Expense>, ExpensesContext>();
-            services.AddTransient<IIncomeContext<Income>, IncomeContext>();
-            services.AddTransient<IUserContext, UserContext>();
-            services.AddTransient<ITaxContext<decimal>, TaxContext>();
-            services.AddTransient<IExecutor, ProcedureExecutor>();
+            services.AddScoped<IExpensesContext<Expense>, ExpensesContext>();
+            services.AddScoped<IIncomeContext<Income>, IncomeContext>();
+            services.AddScoped<IUserContext, UserContext>();
+            services.AddScoped<ITaxContext<decimal>, TaxContext>();
+            services.AddScoped<IExecutor, ProcedureExecutor>();
         }
     }
 }

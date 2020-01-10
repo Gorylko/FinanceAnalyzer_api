@@ -12,11 +12,11 @@ namespace FinanceAnalyzer.Business.Dependency
     {
         public static void AddBusinessDependencies(this IServiceCollection services)
         {
-            services.AddTransient<IIncomeService, IncomeService>();
-            services.AddTransient<IFinanceService, FinanceService>();
-            services.AddTransient<IExpensesService, ExpensesService>();
-            services.AddTransient<ILoginService, LoginService>();
-            services.AddTransient<ITaxService, TaxService>();
+            services.AddScoped<IIncomeService, IncomeService>();
+            services.AddScoped<IFinanceService, FinanceService>();
+            services.AddScoped<IExpensesService, ExpensesService>();
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ITaxService, TaxService>();
         }
     }
 }
