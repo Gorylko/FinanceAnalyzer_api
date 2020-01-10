@@ -44,10 +44,51 @@ namespace FinanceAnalyzer.Web.Controllers.Finance
                 new Income
                 {
                     UserId = int.Parse(
-                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
+                        HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
                     ),
                     Value = value
                 });
+        }
+
+        [Authorize]
+        [HttpGet("getAllExpenses")]
+        public async Task<IEnumerable<Expense>> GetAllExpenses()
+        {
+            return await _financeService.GetExpenseHistory(
+                int.Parse(
+                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
+                    )
+                );
+        }
+
+        [Authorize]
+        [HttpPost("addNewExpense")]
+        public async Task AddNewExpense(decimal value)
+        {
+            if (value == default)
+            {
+                BadRequest("invalid income value");
+            }
+
+            await _financeService.AddNewExpense(
+                new Expense
+                {
+                    UserId = int.Parse(
+                        HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
+                    ),
+                    Value = value
+                });
+        }
+
+        [Authorize]
+        [HttpGet("getFullInfo")]
+        public async Task<FinanceInfo> GetFullInfo()
+        {
+            return await _financeService.GetFullInformation(
+                int.Parse(
+                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
+                    )
+                );
         }
     }
 }
