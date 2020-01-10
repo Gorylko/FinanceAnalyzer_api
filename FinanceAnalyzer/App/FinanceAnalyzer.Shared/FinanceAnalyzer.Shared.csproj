@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="Converters\**" />
+    <Compile Remove="Results\**" />
     <EmbeddedResource Remove="Converters\**" />
+    <EmbeddedResource Remove="Results\**" />
     <None Remove="Converters\**" />
+    <None Remove="Results\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +27,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Results\" />
   </ItemGroup>
 
 </Project>
