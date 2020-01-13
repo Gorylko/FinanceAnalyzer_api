@@ -2,7 +2,6 @@
 using FinanceAnalyzer.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,74 +20,13 @@ namespace FinanceAnalyzer.Web.Controllers.Finance
         }
 
         [Authorize]
-        [HttpGet("getAllIncomes")]
-        public async Task<IEnumerable<Income>> GetAllIncomes()
-        {
-            return await _financeService.GetIncomeHistory(
-                int.Parse(
-                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
-                    )
-                );
-        }
-
-        [Authorize]
-        [HttpPost("addNewIncome")]
-        public async Task AddNewIncome(decimal value)
-        {
-            if(value == default)
-            {
-                BadRequest("invalid income value");
-            }
-
-            await _financeService.AddNewIncome(
-                new Income
-                {
-                    UserId = int.Parse(
-                        HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
-                    ),
-                    Value = value
-                });
-        }
-
-        [Authorize]
-        [HttpGet("getAllExpenses")]
-        public async Task<IEnumerable<Expense>> GetAllExpenses()
-        {
-            return await _financeService.GetExpenseHistory(
-                int.Parse(
-                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
-                    )
-                );
-        }
-
-        [Authorize]
-        [HttpPost("addNewExpense")]
-        public async Task AddNewExpense(decimal value)
-        {
-            if (value == default)
-            {
-                BadRequest("invalid income value");
-            }
-
-            await _financeService.AddNewExpense(
-                new Expense
-                {
-                    UserId = int.Parse(
-                        HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
-                    ),
-                    Value = value
-                });
-        }
-
-        [Authorize]
         [HttpGet("getFullInfo")]
         public async Task<FinanceInfo> GetFullInfo()
         {
             return await _financeService.GetFullInformation(
                 int.Parse(
-                    HttpContext.User.Claims.FirstOrDefault(claim => claim.Type == "UserId").Value
-                    )
-                );
+                    HttpContext.User.Claims.Single(claim => claim.Type == "UserId").Value
+                ));
         }
     }
 }
