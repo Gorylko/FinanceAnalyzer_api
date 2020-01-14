@@ -40,6 +40,7 @@ namespace FinanceAnalyzer.Web.Controllers
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LifeTime)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             var response = new

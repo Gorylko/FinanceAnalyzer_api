@@ -2,6 +2,7 @@
 using FinanceAnalyzer.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,11 +11,11 @@ namespace FinanceAnalyzer.Web.Controllers.Finance
 {
     public class IncomeController : Controller
     {
-        IFinanceService _financeService;
+        private readonly IFinanceService _financeService;
 
         public IncomeController(IFinanceService financeService)
         {
-            _financeService = financeService;
+            _financeService = financeService ?? throw new ArgumentNullException(nameof(financeService));
         }
 
         [Authorize]
