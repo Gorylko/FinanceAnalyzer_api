@@ -45,6 +45,7 @@ CREATE TABLE [dbo].[FinanceOperationHistory]
 	[Id] INT IDENTITY (1, 1) NOT NULL,
 	[UserId] INT NOT NULL,
 	[OperationType] INT NOT NULL,
+	[Date] DATETIME NOT NULL,
 	[Amount] DECIMAL(10, 3) NOT NULL,
 
 	FOREIGN KEY ([UserId]) REFERENCES [dbo].[User]([Id]),
