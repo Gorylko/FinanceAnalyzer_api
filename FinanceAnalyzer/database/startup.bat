@@ -7,12 +7,13 @@ set currentPath=%~dp0
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i drop_all_tables.sql
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i create_tables.sql
 
-sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\delete\sp_delete_all_expenses
-sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\delete\sp_delete_all_incomes
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\delete\sp_delete_all_expenses.sql
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\delete\sp_delete_all_incomes.sql
 
-sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_expense
-sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_income
-sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_user
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_finance_operation_history.sql
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_expense.sql
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_income.sql
+sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\insert\sp_insert_user.sql
 
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\select\sp_select_all_users.sql
 sqlcmd -S %server% -d %database% -U %user% -P %password% -i sp\select\sp_select_expenses_by_user_id.sql
