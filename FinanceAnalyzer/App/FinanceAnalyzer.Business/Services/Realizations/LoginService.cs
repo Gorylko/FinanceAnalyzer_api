@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using FinanceAnalyzer.Business.Cryptographers;
-    using FinanceAnalyzer.Business.Helpers;
+    using FinanceAnalyzer.Business.Converters;
     using FinanceAnalyzer.Business.Services.Interfaces;
     using FinanceAnalyzer.Data.DataContext.Interfaces;
     using FinanceAnalyzer.Data.Models;

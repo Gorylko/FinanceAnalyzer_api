@@ -1,4 +1,4 @@
-﻿namespace FinanceAnalyzer.Business.Helpers
+﻿namespace FinanceAnalyzer.Business.Converters
 {
     using FinanceAnalyzer.Data.Models;
     using FinanceAnalyzer.Shared.Entities;
